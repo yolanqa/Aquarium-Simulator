@@ -208,34 +208,14 @@ int main() {
     std::vector<Bazin> vec_bazine = {bazin};
     Acvariu acvariu (vec_bazine, "Acvariul 1", 100.0);
 
-
-
     std::cout << hrana << std::endl;
     std::cout << animal << std::endl;
     std::cout << obstacole << std::endl;
     std::cout << bazin << std::endl;
     std::cout << acvariu << std::endl;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    Example e1;
+    e1.g();
 
     /////////////////////////////////////////////////////////////////////////
     /// Observație: dacă aveți nevoie să citiți date de intrare de la tastatură,
