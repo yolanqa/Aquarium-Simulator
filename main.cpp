@@ -122,7 +122,7 @@ public:
         : tip(tip),
           pozitie_1(pozitie_1),
           pozitie_2(pozitie_2),
-          activ(true) {
+          activ(activ) {
     }
 
     void Coliziune(const Animal &animal) const;
