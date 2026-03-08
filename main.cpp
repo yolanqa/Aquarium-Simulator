@@ -111,12 +111,12 @@ public:
         return pozitie_b;
     }
 
-    void set_pozitie_a(int pozitie_a) {
-        this->pozitie_a = pozitie_a;
+    void set_pozitie_a(const int m_pozitie_a) {
+        this->pozitie_a = m_pozitie_a;
     }
 
-    void set_pozitie_b(int pozitie_b) {
-        this->pozitie_b = pozitie_b;
+    void set_pozitie_b(const int m_pozitie_b) {
+        this->pozitie_b = m_pozitie_b;
     }
 
     ~Animal() {
