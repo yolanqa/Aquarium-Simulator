@@ -3,6 +3,7 @@
 #include <cstring>
 #include <ostream>
 #include <vector>
+#include "include/Example.h"
 
 
 
