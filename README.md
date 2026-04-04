@@ -1,12 +1,10 @@
-# Just Keep Swimming
+# Adapostul Sperantei
 
-A new entartaining game where you have to avoid obstacles and survive as long as possible (under the water of course 🫧)
+Proiectul are rolul de a simula managementul unui adapost de animale.
 
-## Description
+## Descriere
 
-You control a fish swimming through an aquarium full of dangers lik dodge corals and puffer fish that stand in your way. 
-If you hit a puffer fish, you get pushed back. 
-If you hit a coral, it's Game Over! (STAY AWAY FROM THEM!!) 🪸🪸🪸
+Aplicatia simuleaza modul in care functioneaza un adapost, de la gestionarea animalelor si a padocurilor, pana la procesul de adoptie.
 
 
 
