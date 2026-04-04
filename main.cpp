@@ -1,10 +1,7 @@
 #include <iostream>
-#include <array>
 #include <cstring>
-#include <ostream>
 #include <vector>
 #include "include/Example.h"
-
 
 
 class Hrana {
@@ -12,24 +9,16 @@ private:
     std::string tip;
     double cantitate;
     double valoare_nutritiva;
-public:
-    //Hrana(const std::string &tip, double cantitate, double valoare_nutritiva);
 
+public:
     Hrana(const std::string &tip, const double cantitate, const double valoare_nutritiva)
-        : tip(tip),
-          cantitate(cantitate),
-          valoare_nutritiva(valoare_nutritiva) {
-    }
+        : tip(tip), cantitate(cantitate), valoare_nutritiva(valoare_nutritiva) {}
 
     Hrana(const Hrana &other)
-        : tip(other.tip),
-          cantitate(other.cantitate),
-          valoare_nutritiva(other.valoare_nutritiva) {
-    }
+        : tip(other.tip), cantitate(other.cantitate), valoare_nutritiva(other.valoare_nutritiva) {}
 
-    Hrana & operator=(const Hrana &other) {
-        if (this == &other)
-            return *this;
+    Hrana &operator=(const Hrana &other) {
+        if (this == &other) return *this;
         tip = other.tip;
         cantitate = other.cantitate;
         valoare_nutritiva = other.valoare_nutritiva;
@@ -38,244 +27,280 @@ public:
 
     ~Hrana() = default;
 
-    friend std::ostream & operator<<(std::ostream &os, const Hrana &obj) {
-        return os
-               << "tip: " << obj.tip
-               << " cantitate: " << obj.cantitate
-               << " valoare_nutritiva: " << obj.valoare_nutritiva;
+    [[nodiscard]] double get_valoare_nutritiva() const { return valoare_nutritiva; }
+
+    friend std::ostream &operator<<(std::ostream &os, const Hrana &obj) {
+        return os << "tip: " << obj.tip
+                  << " cantitate: " << obj.cantitate
+                  << " valoare_nutritiva: " << obj.valoare_nutritiva;
     }
 };
 
+
 class Animal {
 private:
-    char* nume;
+    char *nume;
     std::string specie;
     double greutate;
     int varsta;
-    int pozitie_a;
-    int pozitie_b;
+    int stare_sanatate;
+    int nivel_sociabilitate;
     Hrana hrana_preferata;
 
-
-    void functie(const char* src) {
+    void copiaza_nume(const char *src) {
         if (src) {
-            nume= new char[strlen(src) + 1];
-            strcpy(nume,src);
-        }else {
-            nume= nullptr;
+            nume = new char[strlen(src) + 1];
+            strcpy(nume, src);
+        } else {
+            nume = nullptr;
         }
     }
+
 public:
-    //Animal(const char* nume, const std::string& specie, double greutate, int varsta, const Hrana& hrana_preferata);
-
-        Animal(const char* nume, const std::string &specie, const double greutate, const int varsta, const int pozitie_a, const int pozitie_b,
-            const Hrana &hrana_preferata )
-            : specie(specie),
-              greutate(greutate),
-              varsta(varsta),
-              pozitie_a(pozitie_a),
-              pozitie_b(pozitie_b),
-              hrana_preferata(hrana_preferata) { functie(nume); }
-
+    Animal(const char *nume, const std::string &specie, const double greutate,
+           const int varsta, const int stare_sanatate, const int nivel_sociabilitate,
+           const Hrana &hrana_preferata)
+        : specie(specie), greutate(greutate), varsta(varsta),
+          stare_sanatate(stare_sanatate), nivel_sociabilitate(nivel_sociabilitate),
+          hrana_preferata(hrana_preferata) {
+        copiaza_nume(nume);
+    }
 
     Animal(const Animal &other)
-        :
-          specie(other.specie),
-          greutate(other.greutate),
-          varsta(other.varsta),
-          pozitie_a(other.pozitie_a),
-          pozitie_b(other.pozitie_b),
-          hrana_preferata(other.hrana_preferata) { functie(other.nume);}
+        : specie(other.specie), greutate(other.greutate), varsta(other.varsta),
+          stare_sanatate(other.stare_sanatate), nivel_sociabilitate(other.nivel_sociabilitate),
+          hrana_preferata(other.hrana_preferata) {
+        copiaza_nume(other.nume);
+    }
 
-
-    Animal & operator=(const Animal &other) {
-        if (this == &other)
-            return *this;
+    Animal &operator=(const Animal &other) {
+        if (this == &other) return *this;
         delete[] nume;
-        functie(other.nume);
+        copiaza_nume(other.nume);
         specie = other.specie;
         greutate = other.greutate;
         varsta = other.varsta;
-        pozitie_a = other.pozitie_a;
-        pozitie_b = other.pozitie_b;
+        stare_sanatate = other.stare_sanatate;
+        nivel_sociabilitate = other.nivel_sociabilitate;
         hrana_preferata = other.hrana_preferata;
         return *this;
     }
 
-    [[nodiscard]] int pozitie_a1() const {
-        return pozitie_a;
+    ~Animal() { delete[] nume; }
+
+    [[nodiscard]] double get_greutate() const { return greutate; }
+    [[nodiscard]] int get_stare_sanatate() const { return stare_sanatate; }
+    [[nodiscard]] int get_nivel_sociabilitate() const { return nivel_sociabilitate; }
+    [[nodiscard]] std::string get_specie() const { return specie; }
+    [[nodiscard]] std::string get_nume() const { return nume ? std::string(nume) : ""; }
+
+    void hraneste(const Hrana &h) {
+        greutate += h.get_valoare_nutritiva() * 0.1;
     }
 
-    [[nodiscard]] int pozitie_b1() const {
-        return pozitie_b;
+    void imbatraneste() {
+        varsta++;
+        if (greutate > 5.0) greutate -= 0.5;
     }
 
-    void set_pozitie_a(const int m_pozitie_a) {
-        this->pozitie_a = m_pozitie_a;
+    bool este_compatibil(const Animal &other) const {
+        return this->specie == other.specie;
     }
 
-    void set_pozitie_b(const int m_pozitie_b) {
-        this->pozitie_b = m_pozitie_b;
-    }
-
-    ~Animal() {
-        delete[] nume;
-    }
-
-
-    friend std::ostream & operator<<(std::ostream &os, const Animal &obj) {
-        return os
-               << "nume: " << (obj.nume ? obj.nume : "(null)")
-               << " specie: " << obj.specie
-               << " greutate: " << obj.greutate
-               << " varsta: " << obj.varsta
-               << " pozitie_a: " << obj.pozitie_a
-               << " pozitie_b: " << obj.pozitie_b
-               << " hrana_preferata: " << obj.hrana_preferata;
+    friend std::ostream &operator<<(std::ostream &os, const Animal &obj) {
+        return os << "nume: " << (obj.nume ? obj.nume : "(null)")
+                  << " specie: " << obj.specie
+                  << " greutate: " << obj.greutate
+                  << " varsta: " << obj.varsta
+                  << " stare_sanatate: " << obj.stare_sanatate
+                  << " nivel_sociabilitate: " << obj.nivel_sociabilitate
+                  << " hrana_preferata: [" << obj.hrana_preferata << "]";
     }
 };
 
-class Obstacol {
+class Adoptie {
 private:
-    std::string tip;
-    int pozitie_1;
-    int pozitie_2;
-    bool activ;
+    std::string nume_adoptator;
+    std::string data_adoptie;
+    bool aprobata;
+    double taxa;
+    std::string nume_animal;
 
 public:
-    Obstacol(const std::string &tip, int pozitie_1, int pozitie_2, bool activ)
-        : tip(tip),
-          pozitie_1(pozitie_1),
-          pozitie_2(pozitie_2),
-          activ(activ) {
+    Adoptie(const std::string &nume_adoptator, const std::string &data_adoptie,
+            const bool aprobata, const double taxa, const std::string &nume_animal)
+        : nume_adoptator(nume_adoptator), data_adoptie(data_adoptie),
+          aprobata(aprobata), taxa(taxa), nume_animal(nume_animal) {}
+
+    void aprobare() {
+        aprobata = true;
+        std::cout << "Adoptia facuta pentru " << nume_animal << " a fost aprobata!\n";
     }
 
-    bool Coliziune(const Animal &animal) const {
-        if (animal.pozitie_a1() == pozitie_1 && animal.pozitie_b1() == pozitie_2) {
-            return true;
-        }
-        else
-            return false;
-    };
+    void genereaza_contract() const {
+        std::cout << "Contract Adoptie\n";
+        std::cout << "Adoptator: " << nume_adoptator << "\n";
+        std::cout << "Animal: " << nume_animal << "\n";
+        std::cout << "Data: " << data_adoptie << "\n";
+        std::cout << "Taxa: " << taxa << " Ron\n";
+        std::cout << "Statut: " << (aprobata ? "Aprobata": "In asteptare") << "\n";
 
-    void Efect (Animal &animal) const {
-        if (tip=="peste_balon") {
-            animal.set_pozitie_a(animal.pozitie_a1()-1);
-        }
-        if (tip=="coral") {
-            std::cout<<"Game over"<<std::endl;
-        }
     }
 
-    void Mutare(int viteza) {
-        pozitie_1=pozitie_1-viteza;
-        if (pozitie_1<0) {
-            activ=false;
-        }
-    }
+    [[nodiscard]] bool este_aprobata() const { return aprobata; }
+    [[nodiscard]] double get_taxa() const { return taxa; }
 
-    friend std::ostream & operator<<(std::ostream &os, const Obstacol &obj) {
-        return os
-               << "tip: " << obj.tip
-               << " pozitie_1: " << obj.pozitie_1
-               << " pozitie_2: " << obj.pozitie_2
-               << " activ: " << obj.activ;
+    friend std::ostream &operator<<(std::ostream &os, const Adoptie &obj) {
+        return os << "adoptator: " << obj.nume_adoptator
+                  << " animal: " << obj.nume_animal
+                  << " data: " << obj.data_adoptie
+                  << " taxa: " << obj.taxa
+                  << " aprobata: " << obj.aprobata;
     }
 };
 
-
-
-class Bazin {
+class Padoc {
 private:
     std::vector<Animal> vector_animale;
-    std::vector<Obstacol> vector_obstacole;
-    int volum;
-    double temperatura;
-    int salinitate;
+    std::vector<Adoptie> vector_adoptii;
+    int capacitate;
+    std::string tip_animale;
+    double buget_sectiune;
 
 public:
-    //Bazin(int volum, double temperatura, int salinitate);
+    Padoc(const std::vector<Animal> &animale, const std::vector<Adoptie> &adoptii,
+             const int capacitate, const std::string &tip_animale, const double buget_sectiune)
+        : vector_animale(animale), vector_adoptii(adoptii),
+          capacitate(capacitate), tip_animale(tip_animale), buget_sectiune(buget_sectiune) {}
 
-
-    Bazin(const std::vector<Animal> &animale, const std::vector<Obstacol> &obstacole, const int volum, const double temperatura, const int salinitate)
-        : vector_animale(animale),
-          vector_obstacole(obstacole),
-          volum(volum),
-          temperatura(temperatura),
-          salinitate(salinitate) {
+    bool adauga_animal(const Animal &a) {
+        if (static_cast<int>(vector_animale.size()) < capacitate) {
+            vector_animale.push_back(a);
+            return true;
+        }
+        std::cout << "Padocul este plin! Nu se poate adauga un alt animal.\n";
+        return false;
     }
 
-    friend std::ostream & operator<<(std::ostream &os, const Bazin &obj) {
-        return os
-               << " volum: " << obj.volum
-               << " temperatura: " << obj.temperatura
-               << " salinitate: " << obj.salinitate;
+    void hraneste_toate(const Hrana &h) {
+        for (auto &an: vector_animale)
+            an.hraneste(h);
     }
 
-    ~Bazin() = default;
+    double venituri_adoptii() const {
+        double total = 0;
+        for (const auto &ad: vector_adoptii)
+            if (ad.este_aprobata())
+                total += ad.get_taxa();
+        return total;
+    }
+
+    [[nodiscard]] int get_numar_animale() const {
+        return static_cast<int>(vector_animale.size());
+    }
+
+    friend std::ostream &operator<<(std::ostream &os, const Padoc &obj) {
+        return os << "tipul animalelor: " << obj.tip_animale
+                  << " capacitate: " << obj.capacitate
+                  << " animale prezente in padoc: " << obj.vector_animale.size()
+                  << " buget per padoc: " << obj.buget_sectiune;
+    }
+
+    ~Padoc() = default;
 };
 
-class Acvariu{
+class Adapost {
 private:
-    std::vector<Bazin> bazine;
+    std::vector<Padoc> padocuri;
     std::string nume;
     double buget;
 
 public:
-    //Acvariu(const std::string& nume, double buget);
+    Adapost(const std::vector<Padoc> &padocuri, const std::string &nume, const double buget)
+        : padocuri(padocuri), nume(nume), buget(buget) {}
 
-    Acvariu(const std::vector<Bazin> &bazine, const std::string &nume, const double buget)
-        : bazine(bazine),
-          nume(nume),
-          buget(buget) {
+    double cost_intretinere() const {
+        return padocuri.size() * 50.0;
     }
 
-    friend std::ostream & operator<<(std::ostream &os, const Acvariu &obj) {
-        return os
-               << " nume: " << obj.nume
-               << " buget: " << obj.buget;
+    bool poate_cumpara_hrana(const double pret) const {
+        return buget >= cost_intretinere() + pret;
     }
 
-    ~Acvariu() = default;
+    void raport() const {
+        std::cout << "Raport: " << nume << "\n";
+        std::cout << "Numar padocuri: " << padocuri.size() << "\n";
+        int total_animale = 0;
+        for (const auto &s : padocuri)
+            total_animale += s.get_numar_animale();
+        std::cout << "Total animale: " << total_animale << "\n";
+        std::cout << "Cost intretinere: " << cost_intretinere() << " Ron\n";
+        std::cout << "Buget ramas: " << buget - cost_intretinere() << " Ron\n";
+
+    }
+
+    friend std::ostream &operator<<(std::ostream &os, const Adapost &obj) {
+        return os << "nume: " << obj.nume
+                  << " buget: " << obj.buget
+                  << " padocuri: " << obj.padocuri.size();
+    }
+
+    ~Adapost() = default;
 };
 
 
 
-int main() {
-    Hrana hrana ("shrimps", 100.0, 20.0);
-    Animal animal ("Lary", "specie", 100.0, 5, 10, 15, hrana);
-    Obstacol obstacole ("peste balon", 20, 25, true);
-    std::vector<Animal> vec_animale = {animal};
-    std::vector<Obstacol> vec_obstacole = {obstacole};
-    Bazin bazin (vec_animale, vec_obstacole, 200, 20.0, 3);
-    std::vector<Bazin> vec_bazine = {bazin};
-    Acvariu acvariu (vec_bazine, "Acvariul 1", 100.0);
 
-    std::cout << hrana << std::endl;
-    std::cout << animal << std::endl;
-    std::cout << obstacole << std::endl;
-    std::cout << bazin << std::endl;
-    std::cout << acvariu << std::endl;
+
+int main() {
+
+    Hrana hrana("carne", 200.0, 30.0);
+    Animal animal1("Bella", "caine", 25.0, 3, 8, 7, hrana);
+    Animal animal2("Pupic", "pisica", 4.0, 2, 9, 5, hrana);
+
+    Adoptie adoptie1("Raluca Stefanescu", "2025-12-06", false, 150.0, "Bella");
+    Adoptie adoptie2("Alina Stoica", "2026-01-05", false, 100.0, "Pupic");
+
+    std::vector<Animal> vec_animale = {animal1, animal2};
+    std::vector<Adoptie> vec_adoptii = {adoptie1, adoptie2};
+
+    Padoc padoc(vec_animale, vec_adoptii, 5, "caine/pisica", 300.0);
+    std::vector<Padoc> vec_padocuri = {padoc};
+
+    Adapost adapost(vec_padocuri, "Adapostul Sperantei", 500.0);
+
+    std::cout << hrana << "\n";
+    std::cout << animal1 << "\n";
+    std::cout << animal2 << "\n";
+    std::cout << adoptie1 << "\n";
+    std::cout << padoc << "\n";
+    std::cout << adapost << "\n\n";
+
+    adoptie1.aprobare();
+    adoptie1.genereaza_contract();
+    adoptie2.genereaza_contract();
+
+    std::cout << "Bella si Pupic sunt compatibile: " << animal1.este_compatibil(animal2) << "\n";
+
+    Hrana hrana2("legume", 100.0, 10.0);
+    animal1.hraneste(hrana2);
+    animal1.imbatraneste();
+    std::cout << "Dupa hranire si procesul de imbatranire: " << animal1 << "\n";
+
+    Animal animal3("Dingo", "caine", 45.0, 9, 7, 9, hrana);
+    padoc.adauga_animal(animal3);
+
+    padoc.hraneste_toate(hrana2);
+
+    std::cout << "Venituri pentru adoptiile aprobate: " << padoc.venituri_adoptii() << " RON\n";
+
+    adapost.raport();
+
+    std::cout << "Poate cumpara hrana (pret 200): "
+              << adapost.poate_cumpara_hrana(200.0) << "\n";
 
     Example e1;
     e1.g();
-
-
-    if (obstacole.Coliziune(animal)) {
-        std::cout << "Coliziune detectata" << std::endl;
-    }else {
-        std::cout << " Nu exista coliziune" << std::endl;
-    }
-
-    obstacole.Efect(animal);
-    std::cout << animal << std::endl;
-
-    obstacole.Mutare(5);
-    std::cout << obstacole << std::endl;
-
-    animal.set_pozitie_b(animal.pozitie_b1()-1);
-    std::cout << animal << std::endl;
-
 
     return 0;
 }
