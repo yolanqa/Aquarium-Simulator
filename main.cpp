@@ -117,6 +117,11 @@ public:
             std::cout << "stare buna\n";
     }
 
+    bool este_de_adoptat() const {
+        if (stare_sanatate >= 5 && varsta <= 10) { return true;}
+        else return false;
+    }
+
     friend std::ostream &operator<<(std::ostream &os, const Animal &obj) {
         return os << "nume: " << (obj.nume ? obj.nume : "(null)")
                   << " specie: " << obj.specie
@@ -213,6 +218,15 @@ public:
         return static_cast<int>(vector_animale.size());
     }
 
+    Animal* animal_recomandat() {
+        for (auto &a: vector_animale) {
+            if (a.este_de_adoptat()) return &a;
+        }
+        return nullptr;
+    }
+
+
+
     friend std::ostream &operator<<(std::ostream &os, const Padoc &obj) {
         return os << "tipul animalelor: " << obj.tip_animale
                   << " capacitate: " << obj.capacitate
@@ -252,6 +266,8 @@ public:
         std::cout << "Buget ramas: " << buget - cost_intretinere() << " Ron\n";
 
     }
+
+
 
     friend std::ostream &operator<<(std::ostream &os, const Adapost &obj) {
         return os << "nume: " << obj.nume
@@ -310,10 +326,17 @@ int main() {
     std::cout << "Dupa hranire si procesul de imbatranire: " << animal1 << "\n";
 
 
-    Animal animal3("Dingo", "caine", 45.0, 9, 7, 9, hrana);
+
+    Animal animal3("Dingo ", "caine", 45.0, 9, 7, 9, hrana);
     padoc.adauga_animal(animal3);
     animal3.afiseaza_stare();
+    std::cout<<"Bella este data inspre adoptie: "<<animal1.este_de_adoptat()<<"\n";
 
+    Animal* recomandat = padoc.animal_recomandat();
+    if (recomandat != nullptr)
+        std::cout<<"Recomandat pentru adoptie: "<<*recomandat<<"\n";
+    else
+        std::cout<<"Recomandat pentru adoptie: nullptr\n";
 
     padoc.hraneste_toate(hrana2);
 
