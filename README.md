@@ -1,10 +1,13 @@
 # Adapostul Sperantei
 
-Proiectul are rolul de a simula managementul unui adapost de animale.
+    Proiectul are rolul de a simula managementul unui adapost de animale. 
+
+! In proiect sunt folosite nume din viata reala, atat pentru stapani, angajati, cat si pentru animalute !
 
 ## Descriere
 
-Aplicatia simuleaza modul in care functioneaza un adapost, de la gestionarea animalelor si a padocurilor, pana la procesul de adoptie.
+Aplicatia simuleaza modul in care functioneaza un adapost, de la gestionarea animalelor si a padocurilor, pana la procesul de adoptie. Avem prezente elemente din viata reala regasite in administrarea unui adapost, de data asta structurat sub forma de cod. :)
+
 
 
 
