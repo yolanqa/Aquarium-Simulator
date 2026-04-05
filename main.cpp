@@ -278,7 +278,7 @@ public:
 
     ~Adapost() = default;
 };
-
+//
 class Ingrijitor {
     char* nume;
     int vechime;
