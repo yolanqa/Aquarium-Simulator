@@ -332,7 +332,7 @@ public:
     }
 
     void alocare_padocuri(Padoc& p,const Hrana& h)const {
-        std::cout<<(nume?nume:"(null")<<" are macar un padoc de hranit.\n";
+        std::cout<<(nume?nume:"(null)")<<" are macar un padoc de hranit.\n";
         p.hraneste_toate(h);
     }
 
