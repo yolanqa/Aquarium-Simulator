@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <ostream>
 #include <vector>
 #include "include/Example.h"
 
@@ -278,6 +279,71 @@ public:
     ~Adapost() = default;
 };
 
+class Ingrijitor {
+    char* nume;
+    int vechime;
+    std::string post;
+    double salariu;
+
+
+    void copy_nume(const char* src) {
+        if (src) {
+            nume = new char[strlen(src)+1];
+            strcpy(nume, src);
+        }
+        else {
+            nume = nullptr;
+        }
+    }
+
+public:
+    Ingrijitor(const char *nume, const int vechime, const std::string post, const double salariu)
+        :
+          vechime(vechime),
+          post(post),
+          salariu(salariu) {copy_nume(nume);}
+
+
+    Ingrijitor(const Ingrijitor &other)
+        :vechime(other.vechime), post(other.post),
+          salariu(other.salariu) {copy_nume(other.nume);}
+
+
+
+    Ingrijitor & operator=(const Ingrijitor &other) {
+        if (this == &other)
+            return *this;
+        delete [] nume;
+        copy_nume(other.nume);
+        vechime = other.vechime;
+        post = other.post;
+        salariu = other.salariu;
+        return *this;
+    }
+    ~Ingrijitor() {delete [] nume;}
+
+    void afisare_salariu() const {
+        std::cout<<(nume?nume:"(null)")<<": "<<salariu<<" Ron\n";
+    }
+
+    bool vechime_in_adapost()const {
+        if (vechime < 5) return false;
+        else return true;
+    }
+
+    friend std::ostream & operator<<(std::ostream &os, const Ingrijitor &obj) {
+        return os
+               << "nume: " << (obj.nume?obj.nume:"(null)")
+               << "vechime: " << obj.vechime
+               << "post: " << obj.post
+               << "salariu: " << obj.salariu;
+    }
+
+};
+
+
+
+
 
 int main() {
 
@@ -349,6 +415,11 @@ int main() {
     std::cout << "Poate cumpara hrana: "
               << adapost.poate_cumpara_hrana(200.0) << "\n";
 
+
+    Ingrijitor ingrijitor ("Stefan Ghetu", 5, "veterinar",6000.0);
+    std::cout << ingrijitor << "\n";
+    std::cout << "Vechimea: "<<ingrijitor.vechime_in_adapost() << "\n";
+    ingrijitor.afisare_salariu();
     Example e1;
     e1.g();
 
