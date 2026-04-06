@@ -92,7 +92,7 @@ public:
     [[nodiscard]] double get_greutate() const { return greutate; }
     [[nodiscard]] int get_stare_sanatate() const { return stare_sanatate; }
     [[nodiscard]] int get_nivel_sociabilitate() const { return nivel_sociabilitate; }
-    [[nodiscard]] const std::string get_specie() const { return specie; }
+    [[nodiscard]] const std::string& get_specie() const { return specie; }
     [[nodiscard]] std::string get_nume() const { return nume ? std::string(nume) : ""; }
 
     void hraneste(const Hrana &h) {
@@ -297,7 +297,7 @@ class Ingrijitor {
     }
 
 public:
-    Ingrijitor(const char *nume, const int vechime, const std::string post, const double salariu)
+    Ingrijitor(const char *nume, const int vechime, const std::string& post, const double salariu)
         :
           vechime(vechime),
           post(post),
