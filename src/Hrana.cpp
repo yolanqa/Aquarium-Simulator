@@ -9,16 +9,7 @@
     Hrana::Hrana(const std::string &tip, const double cantitate, const double valoare_nutritiva)
         : tip(tip), cantitate(cantitate), valoare_nutritiva(valoare_nutritiva) {}
 
-    Hrana::Hrana(const Hrana &other)
-        : tip(other.tip), cantitate(other.cantitate), valoare_nutritiva(other.valoare_nutritiva) {}
 
-    Hrana& Hrana::operator=(const Hrana &other) {
-        if (this == &other) return *this;
-        tip = other.tip;
-        cantitate = other.cantitate;
-        valoare_nutritiva = other.valoare_nutritiva;
-        return *this;
-    }
 
 
     double Hrana::get_valoare_nutritiva() const { return valoare_nutritiva; }

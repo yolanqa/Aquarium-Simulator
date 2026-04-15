@@ -18,7 +18,7 @@ private:
     int nivel_sociabilitate;
     Hrana hrana_preferata;
 
-    void copiaza_nume(const char *src);
+
 
 public:
     Animal(const std::string& nume, const std::string &specie, const double greutate,

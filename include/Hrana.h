@@ -15,7 +15,7 @@ private:
 public:
 
 
-    ~Hrana() = default;
+
 
     [[nodiscard]] double get_valoare_nutritiva() const;
 
