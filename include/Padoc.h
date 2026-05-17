@@ -9,6 +9,7 @@
 #include <ostream>
 #include "Adoptie.h"
 #include "Hrana.h"
+#include "Exceptii.h"
 
 class Padoc {
 private:

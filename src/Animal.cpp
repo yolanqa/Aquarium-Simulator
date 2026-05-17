@@ -22,6 +22,7 @@
 
 
 
+
     [[nodiscard]] double Animal::get_greutate() const { return greutate; }
     [[nodiscard]] int Animal::get_stare_sanatate() const { return stare_sanatate; }
     [[nodiscard]] int Animal::get_nivel_sociabilitate() const { return nivel_sociabilitate; }
@@ -77,3 +78,4 @@
                   << " | nivel_sociabilitate: " << obj.nivel_sociabilitate
                   << " | hrana_preferata: [" << obj.hrana_preferata << "]";
     }
+    //Animal::~Animal() = default;

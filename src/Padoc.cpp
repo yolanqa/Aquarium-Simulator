@@ -14,7 +14,9 @@
     Padoc::Padoc(const std::vector<Animal> &animale, const std::vector<Adoptie> &adoptii,
              const int capacitate, const std::string &tip_animale, const double buget_sectiune)
         : vector_animale(animale), vector_adoptii(adoptii),
-          capacitate(capacitate), tip_animale(tip_animale), buget_sectiune(buget_sectiune) {}
+          capacitate(capacitate), tip_animale(tip_animale), buget_sectiune(buget_sectiune) {
+
+    }
 
     bool Padoc::adauga_animal(const Animal &a) {
         if (static_cast<int>(vector_animale.size()) < capacitate) {
@@ -62,6 +64,14 @@
             else {a.stare_de_sanatate_modificata(2*luni);}
         }
 
+    }
+
+    bool Padoc::adauga_animal(const Animal &a) {
+        if (static_cast<int>(vector_animale.size()) >= capacitate) {
+            throw CapacitatePadocException();
+        }
+        vector_animale.push_back(a->clone());
+        return true;
     }
 
 

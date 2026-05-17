@@ -25,7 +25,9 @@ public:
            const int varsta, const int stare_sanatate, const int nivel_sociabilitate,
            const Hrana &hrana_preferata);
 
-
+    virtual Animal* clone() const =0;
+    virtual void sunet()const =0;
+    virtual double calculeaza_taxa_adoptie() const=0;
     static int get_nr_total_animale();
 
 
@@ -53,4 +55,6 @@ public:
 
 
     friend std::ostream &operator<<(std::ostream &os, const Animal &obj);
+
+    virtual ~Animal(){};
 };

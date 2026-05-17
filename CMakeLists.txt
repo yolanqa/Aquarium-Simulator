@@ -63,6 +63,13 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         include/Hrana.h
         include/Ingrijitor.h
         include/Padoc.h
+        include/Caine.h
+        include/Pisica.h
+        include/Peste.h
+        src/Caine.cpp
+        src/Pisica.cpp
+        src/Peste.cpp
+        include/Exceptii.h
 )
 #target_sources(${MAIN_EXECUTABLE_NAME}
 #    PRIVATE
@@ -98,6 +105,6 @@ if(APPLE)
     install(FILES launcher.command DESTINATION ${DESTINATION_DIR})
 endif()
 
-#copy_files(FILES assets/tastatura.txt DIRECTORY assets COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
+copy_files(FILES assets/tastatura.txt DIRECTORY assets COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
 # copy_files(FILES tastatura.txt config.json DIRECTORY images sounds COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
 # copy_files(DIRECTORY images sounds COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
