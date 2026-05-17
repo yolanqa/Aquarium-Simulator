@@ -6,6 +6,9 @@
 #include "Exceptii.h"
 class Pisica:public Animal{
     std::string rasa;
+
+protected:
+    void print(std::ostream& os) const override;
 public:
     Pisica(const std::string& nume, const std::string& specie, double greutate, int varsta, int stare_sanatate, int nivel_sociabilitate, const Hrana& hrana_preferata, const std::string& rasa);
 

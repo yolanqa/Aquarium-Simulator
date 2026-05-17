@@ -4,30 +4,33 @@
 #pragma once
 
 #include "Animal.h"
+#include "Exceptii.h"
 #include <vector>
 #include <string>
-#include <ostream>
+
 #include "Adoptie.h"
 #include "Hrana.h"
-#include "Exceptii.h"
+#include <memory>
+
 
 class Padoc {
 private:
-    std::vector<Animal> vector_animale;
+    std::vector<std::unique_ptr<Animal>> vector_animale;
     std::vector<Adoptie> vector_adoptii;
     int capacitate;
     std::string tip_animale;
     double buget_sectiune;
 
 public:
-    Padoc(const std::vector<Animal> &animale, const std::vector<Adoptie> &adoptii,
-             const int capacitate, const std::string &tip_animale, const double buget_sectiune);
-
+    Padoc(const std::vector<std::unique_ptr<Animal>>& animale, const std::vector<Adoptie> &adoptii,
+              int capacitate, const std::string &tip_animale, double buget_sectiune);
+    Padoc(const Padoc& other);
     bool adauga_animal(const Animal &a);
 
     void hraneste_toate(const Hrana &h);
 
     double venituri_adoptii() const;
+
 
 
     void adauga_adoptie(const Adoptie &a);

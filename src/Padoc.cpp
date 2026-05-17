@@ -4,6 +4,7 @@
 
 #include "Padoc.h"
 #include "Animal.h"
+#include "Exceptii.h"
 #include <vector>
 #include <iostream>
 #include <string>
@@ -11,25 +12,26 @@
 #include "Hrana.h"
 
 
-    Padoc::Padoc(const std::vector<Animal> &animale, const std::vector<Adoptie> &adoptii,
-             const int capacitate, const std::string &tip_animale, const double buget_sectiune)
-        : vector_animale(animale), vector_adoptii(adoptii),
-          capacitate(capacitate), tip_animale(tip_animale), buget_sectiune(buget_sectiune) {
-
+    Padoc::Padoc(const std::vector<std::unique_ptr<Animal>>& animale, const std::vector<Adoptie> &adoptii,
+          int capacitate, const std::string &tip_animale, double buget_sectiune)
+    : vector_adoptii(adoptii), capacitate(capacitate),
+        tip_animale(tip_animale), buget_sectiune(buget_sectiune) {
+            for (const auto &a : animale)
+            vector_animale.push_back(std::unique_ptr<Animal>(a->clone()));
+}
+    Padoc::Padoc(const Padoc& other)
+        : vector_adoptii(other.vector_adoptii),
+            capacitate(other.capacitate),
+            tip_animale(other.tip_animale),
+            buget_sectiune(other.buget_sectiune) {
+        for (const auto& a : other.vector_animale)
+            vector_animale.push_back(std::unique_ptr<Animal>(a->clone()));
     }
 
-    bool Padoc::adauga_animal(const Animal &a) {
-        if (static_cast<int>(vector_animale.size()) < capacitate) {
-            vector_animale.push_back(a);
-            return true;
-        }
-        std::cout << "Padocul este plin! Nu se poate adauga un alt animal.\n";
-        return false;
-    }
 
     void Padoc::hraneste_toate(const Hrana &h) {
         for (auto &an: vector_animale)
-            an.hraneste(h);
+            an->hraneste(h);
     }
 
     double Padoc::venituri_adoptii() const {
@@ -50,27 +52,28 @@
 
     const Animal* Padoc::animal_recomandat() const {
         for (const auto &a: vector_animale) {
-            if (a.este_de_adoptat()) return &a;
+            if (a->este_de_adoptat()) return a.get();
         }
         return nullptr;
     }
 
     void Padoc::actualizare_animale(int luni, bool este_buget) {
-        for (auto&a: vector_animale) {
-            a.imbatraneste_d(luni);
-            if (!este_buget) {
-                a.stare_de_sanatate_modificata(-10*luni);
-            }
-            else {a.stare_de_sanatate_modificata(2*luni);}
-        }
-
+        for (auto &a : vector_animale) {
+            a->imbatraneste_d(luni);
+            if (!este_buget)
+                a->stare_de_sanatate_modificata(-10 * luni);
+            else
+                a->stare_de_sanatate_modificata(2 * luni);
     }
+}
+
+
 
     bool Padoc::adauga_animal(const Animal &a) {
         if (static_cast<int>(vector_animale.size()) >= capacitate) {
             throw CapacitatePadocException();
         }
-        vector_animale.push_back(a->clone());
+        vector_animale.push_back(std::unique_ptr<Animal>(a.clone()));
         return true;
     }
 

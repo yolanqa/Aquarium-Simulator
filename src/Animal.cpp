@@ -69,13 +69,24 @@
             this->stare_sanatate=0;
     }
 
-    std::ostream &operator<<(std::ostream &os, const Animal &obj) {
+    /*std::ostream &operator<<(std::ostream &os, const Animal &obj) {
         return os << "nume: " << obj.nume
                   << " | specie: " << obj.specie
                   << " | greutate: " << obj.greutate
                   << " | varsta: " << obj.varsta
                   << " | stare_sanatate: " << obj.stare_sanatate
                   << " | nivel_sociabilitate: " << obj.nivel_sociabilitate
-                  << " | hrana_preferata: [" << obj.hrana_preferata << "]";
+                  << " | hrana_preferata: [" << obj.hrana_preferata << "]";*/
+
+
+
+    void Animal::print(std::ostream& os) const {
+        os << "nume: " << nume
+           << " | specie: " << specie
+           << " | greutate: " << greutate
+           << " | varsta: " << varsta
+           << " | stare_sanatate: " << stare_sanatate
+           << " | nivel_sociabilitate: " << nivel_sociabilitate
+           << " | hrana_preferata: [" << hrana_preferata << "]";
     }
     //Animal::~Animal() = default;

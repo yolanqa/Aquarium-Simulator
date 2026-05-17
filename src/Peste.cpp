@@ -31,3 +31,7 @@
         if (apa == "dulce") return taxa_baza + 30.0;
         return taxa_baza;
     }
+    void Peste::print(std::ostream& os) const {
+        Animal::print(os);
+        os << " | apa: " << apa;
+    }

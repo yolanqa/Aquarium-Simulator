@@ -10,21 +10,22 @@
 
 
 
+
 class Adapost {
 private:
-    std::vector<Padoc> padocuri;
+    std::vector<std::unique_ptr<Padoc>> padocuri;
     std::string nume;
     double buget;
 
 public:
-    Adapost(const std::vector<Padoc> &padocuri, const std::string &nume, const double buget);
+    Adapost(std::vector<std::unique_ptr<Padoc>>& padocuri, const std::string &nume,  double buget);
 
     double cost_intretinere() const;
 
     bool adauga_padoc(const Padoc &p);
 
 
-    bool poate_cumpara_hrana(const double pret) const;
+    bool poate_cumpara_hrana( double pret) const;
 
     void raport() const;
 

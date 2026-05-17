@@ -29,5 +29,9 @@
         if (rasa == "bengaleza") return taxa_baza + 200.0;
         return taxa_baza;
     }
+    void Pisica::print(std::ostream& os) const {
+        Animal::print(os);
+        os << " | rasa: " << rasa;
+    }
 
     //Pisica::~Pisica=default;

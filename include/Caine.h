@@ -8,6 +8,9 @@
 class Caine:public Animal{
     std::string grupa;
     //daca e de rasa in domeniul asta exista diferite grupe in functie de ce menire are cainele (de paza, de frumusete etc)
+
+protected:
+    void print(std::ostream& os) const override;
 public:
     std::string get_grupa() const;
     Caine(const std::string& nume, const std::string& specie, double greutate, int varsta, int stare_sanatate, int nivel_sociabilitate, const Hrana& hrana_preferata, const std::string& grupa);

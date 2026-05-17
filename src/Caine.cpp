@@ -30,5 +30,9 @@
         if (grupa == "frumusete") return taxa_baza + 100.0;
         return taxa_baza;
     }
+    void Caine::print(std::ostream& os) const {
+        Animal::print(os);  // apeleaza baza
+        os << " | grupa: " << grupa;
+    }
 
     //Caine::~Caine() = default;

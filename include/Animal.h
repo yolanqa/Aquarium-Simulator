@@ -18,7 +18,8 @@ private:
     int nivel_sociabilitate;
     Hrana hrana_preferata;
 
-
+protected:
+    virtual void print(std::ostream& os) const;
 
 public:
     Animal(const std::string& nume, const std::string &specie, const double greutate,
@@ -54,7 +55,10 @@ public:
     void stare_de_sanatate_modificata(int valoare);
 
 
-    friend std::ostream &operator<<(std::ostream &os, const Animal &obj);
+    friend std::ostream& operator<<(std::ostream& os, const Animal& obj) {
+        obj.print(os);
+        return os;
+    }
 
     virtual ~Animal(){};
 };
